@@ -27,7 +27,7 @@ curBDD_INTER = cnx.cursor()
 ################################### Requete SQL ###################################
 codeSql = []
 codeSql.append("SELECT Tesla_F1,Tesla_F2,Tesla_F3,Tesla_F4,HallRdc_F1,HallRdc_F2,Lumiere_F1,Lumiere_F2,Lumiere_F3,Nobel_F1,Nobel_F2,Nobel_F3,HallPalier_F1,HallPalier_F2,HallPalier_F3,Turing_F1,Turing_F2,Turing_F3 FROM TEST.FenetreEvents order by TimeStamp DESC limit 1;")
-codeSql.append("INSERT INTO `BDD_INTER`.`EvenFenetre`(`TimeStamp`,`EtatFenetre`,`NumeroFenetre`,`Locales_idLocal`)VALUES(CURRENT_DATE(),%(EtatFenetre)s,%(NumeroFenetre)s,%(NumeroFenetre)s,%(Locales_idLocal)s);")
+codeSql.append("INSERT INTO `BDD_INTER`.`EvenFenetre`(`TimeStamp`,`EtatFenetre`,`NumeroFenetre`,`Locales_idLocal`) VALUES (CURRENT_TIMESTAMP(),%(EtatFenetre)s,%(NumeroFenetre)s,%(Locales_idLocal)s);")
 
 ################################### Requete SQL ###################################
 
@@ -54,37 +54,92 @@ def setInformation(codeSql,Data):
 ################################### Ajout des donnees ###################################
 
 Data = ({
-    #lumiere
-    'Temperature' :     getInformation(codeSql[0])[0],
-    'Hygro' :           getInformation(codeSql[0])[1],
-    'Locales_idLocal' : 3
+    #Tesla
+    'EtatFenetre'     : getInformation(codeSql[0])[0],
+    'NumeroFenetre'  :  11,
+    'Locales_idLocal':  1,
+},{
+    'EtatFenetre'     : getInformation(codeSql[0])[1],
+    'NumeroFenetre'  :  12,
+    'Locales_idLocal':  1,
+
+},{
+    'EtatFenetre'     : getInformation(codeSql[0])[2],
+    'NumeroFenetre'  :  13,
+    'Locales_idLocal':  1,
+},{
+    'EtatFenetre'     : getInformation(codeSql[0])[3],
+    'NumeroFenetre'  :  14,
+    'Locales_idLocal':  1,
+},{
+    #Hall
+    'EtatFenetre'    :  getInformation(codeSql[0])[4],
+    'NumeroFenetre'  :  51,
+    'Locales_idLocal':  5,
+},{
+    'EtatFenetre'    :  getInformation(codeSql[0])[5],
+    'NumeroFenetre'  :  52,
+    'Locales_idLocal':  5,
+},{
+    'EtatFenetre'    :  getInformation(codeSql[0])[6],
+    'NumeroFenetre'  :  53,
+    'Locales_idLocal':  5,
+},{
+    'EtatFenetre'    :  getInformation(codeSql[0])[7],
+    'NumeroFenetre'  :  54,
+    'Locales_idLocal':  5,
+},{
+    'EtatFenetre'    :  getInformation(codeSql[0])[8],
+    'NumeroFenetre'  :  55,
+    'Locales_idLocal':  5,
+},{
+    #Lumiere
+    'EtatFenetre'    :  getInformation(codeSql[0])[9],
+    'NumeroFenetre'  :  31,
+    'Locales_idLocal':  3,
+},{
+    'EtatFenetre'    :  getInformation(codeSql[0])[10],
+    'NumeroFenetre'  :  32,
+    'Locales_idLocal':  3,
+},{
+    'EtatFenetre'    :  getInformation(codeSql[0])[11],
+    'NumeroFenetre'  :  33,
+    'Locales_idLocal':  3,
+},{
+    'EtatFenetre'    :  getInformation(codeSql[0])[12],
+    'NumeroFenetre'  :  34,
+    'Locales_idLocal':  3,
+},{
+    'EtatFenetre'    :  getInformation(codeSql[0])[13],
+    'NumeroFenetre'  :  35,
+    'Locales_idLocal':  3,
+},{
+    'EtatFenetre'    :  getInformation(codeSql[0])[14],
+    'NumeroFenetre'  :  36,
+    'Locales_idLocal':  3,
 },{
     #Turing
-    'Temperature':      getInformation(codeSql[0])[2],
-    'Hygro':            getInformation(codeSql[0])[3],
-    'Locales_idLocal' : 2
+    'EtatFenetre'    :  getInformation(codeSql[0])[15],
+    'NumeroFenetre'  :  21,
+    'Locales_idLocal':  2,
 },{
-    #Nobel
-    'Temperature':      getInformation(codeSql[0])[4],
-    'Hygro':            getInformation(codeSql[0])[5],
-    'Locales_idLocal' : 4
+    'EtatFenetre'    :  getInformation(codeSql[0])[16],
+    'NumeroFenetre'  :  22,
+    'Locales_idLocal':  2,
 },{
-    #Teslab
-    'Temperature':      getInformation(codeSql[0])[6],
-    'Hygro':            getInformation(codeSql[0])[7],
-    'Locales_idLocal' : 1
+    'EtatFenetre'    :  getInformation(codeSql[0])[17],
+    'NumeroFenetre'  :  23,
+    'Locales_idLocal':  2,
 })
 
 ################################### Ajout des donnees ###################################
 
-#SELECT * FROM BDD_INTER.Temperature INNER JOIN Locales ON Temperature.Locales_idLocal = Locales.idLocal;
+
 
 ################################### code insertion ###################################
 
-setInformation(codeSql[1],Data[0])
-setInformation(codeSql[1],Data[1])
-setInformation(codeSql[1],Data[2])
-setInformation(codeSql[1],Data[3])
+for i in range(0, len(Data)):
+    setInformation(codeSql[1],Data[i])
 
 ################################### code insertion ###################################
 
