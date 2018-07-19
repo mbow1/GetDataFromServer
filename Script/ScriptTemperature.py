@@ -27,7 +27,7 @@ curBDD_INTER = cnx.cursor()
 ################################### Requete SQL ###################################
 codeSql = []
 codeSql.append("SELECT tempLumiere,hydroLumiere,tempTuring,hydroTuring,tempNobel,hydroNobel,tempTesla,hydroTesla FROM TEST.Temp2 order by TimeStamp DESC limit 1;")
-codeSql.append("INSERT INTO `BDD_INTER`.`Temperature`(`Temperature`,`Hygro`,`Locales_idLocal`) VALUES (%(Temperature)s,%(Hygro)s,%(Locales_idLocal)s);")
+codeSql.append("INSERT INTO `BDD_INTER`.`Temperature`(`TimeStamp`,`Temperature`,`Hygro`,`Locales_idLocal`) VALUES (CURRENT_TIMESTAMP(),%(Temperature)s,%(Hygro)s,%(Locales_idLocal)s);")
 ################################### Requete SQL ###################################
 
 
@@ -38,43 +38,56 @@ def getInformation(codeSql):
       resultat = resultat[0]
       return resultat
       del resultat
-      dbconBDF.close()
+     
 
 
-def setInformation(codeSql,Data_Meteo):
+def setInformation(codeSql,Data):
     try:
-        curBDD_INTER.execute(codeSql,Data_Meteo)
+        curBDD_INTER.execute(codeSql,Data)
         cnx.commit()
     except:
         cnx.rollback
-    cnx.close()
+
 ################################### code de recuperation ###################################
 
 ################################### Ajout des donnees ###################################
 
-Data_Meteo = []{
+Data = ({
     #lumiere
-    'Temperature' : ,
-    'Hygro' : ,
+    'Temperature' :     getInformation(codeSql[0])[0],
+    'Hygro' :           getInformation(codeSql[0])[1],
+    'Locales_idLocal' : 3
 },{
     #Turing
-    'Temperature': ,
-    'Hygro': ,
+    'Temperature':      getInformation(codeSql[0])[2],
+    'Hygro':            getInformation(codeSql[0])[3],
+    'Locales_idLocal' : 2
 },{
     #Nobel
-    'Temperature': ,
-    'Hygro': ,
+    'Temperature':      getInformation(codeSql[0])[4],
+    'Hygro':            getInformation(codeSql[0])[5],
+    'Locales_idLocal' : 4
 },{
-    #Tesla
-    'Temperature': ,
-    'Hygro': ,
-}
+    #Teslab
+    'Temperature':      getInformation(codeSql[0])[6],
+    'Hygro':            getInformation(codeSql[0])[7],
+    'Locales_idLocal' : 1
+})
 
 ################################### Ajout des donnees ###################################
 
+#SELECT * FROM BDD_INTER.Temperature INNER JOIN Locales ON Temperature.Locales_idLocal = Locales.idLocal;
 
 ################################### code insertion ###################################
 
-setInformation(codeSql[1],Data_Meteo)
+setInformation(codeSql[1],Data[0])
+setInformation(codeSql[1],Data[1])
+setInformation(codeSql[1],Data[2])
+setInformation(codeSql[1],Data[3])
 
 ################################### code insertion ###################################
+
+################################### Fermeture des BDD ###################################
+dbconBDF.close()
+cnx.close()
+################################### Fermeture des BDD ###################################

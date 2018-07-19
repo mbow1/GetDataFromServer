@@ -41,9 +41,9 @@ def getInformation(codeSql):
       dbconBDF.close()
 
 
-def setInformation(codeSql,Data_Meteo):
+def setInformation(codeSql,Data):
     try:
-        curBDD_INTER.execute(codeSql,Data_Meteo)
+        curBDD_INTER.execute(codeSql,Data)
         cnx.commit()
     except:
         cnx.rollback
@@ -52,7 +52,7 @@ def setInformation(codeSql,Data_Meteo):
 
 ################################### Ajout des donnees ###################################
 
-Data_Meteo = {
+Data = {
     'VitesseVent':  getInformation(codeSql[0])[0],
     'DirectionVent':getInformation(codeSql[0])[1],
     'Pression':     getInformation(codeSql[0])[2],
@@ -71,6 +71,6 @@ Data_Meteo = {
 
 ################################### code insertion ###################################
 
-setInformation(codeSql[1],Data_Meteo)
+setInformation(codeSql[1],Data)
 
 ################################### code insertion ###################################
