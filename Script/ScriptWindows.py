@@ -134,7 +134,7 @@ Data = ({
 
 ################################### Ajout des donnees ###################################
 
-
+#SELECT * FROM BDD_INTER.EvenFenetre INNER JOIN Locales ON EvenFenetre.Locales_idLocal = Locales.idLocal order by TimeStamp DESC;
 
 ################################### code insertion ###################################
 
